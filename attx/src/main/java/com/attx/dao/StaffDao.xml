@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+	namespace命名空间，sql语句隔离，后面还有重要作用
+	#{}作用就是占位符，相当于jdbc的? 
+	parameterType：查询参数的类型
+	resultType：查询结构的数据类型，如果是pojo应该是全路径
+	
+	mapper代理的开发规则：
+		1.namespace必须是接口的全限定名
+		2.statementid必须和接口的方法名称一致
+		3.接口方法的参数类型要和parameterType要一致
+		4.接口方法的返回值类型要和resultType一致
+-->
+<mapper namespace="cn.itcast.mybatis.mapper.UserMapper">
+	<!-- 别名不区别大小写 -->
+	<select id="getUserId" parameterType="int" resultType="User">
+		SELECT * FROM `user` WHERE id=#{id};
+	</select>
+	
+	<!-- 如果查询结果返回list，resultType设置为list中一个元素的数据类型 -->
+	<select id="getUserName" parameterType="string" resultType="User">
+		<!-- SELECT * FROM `user` WHERE username like #{username}; -->
+		SELECT * FROM `user` WHERE username like '%${value}%';
+	</select>
+	
+	<!-- 参数pojo，#{}中名称就是pojo的属性 -->
+	<insert id="insertUsername" parameterType="cn.itcast.mybatis.po.User">
+		<!-- 
+			keyProperty：对于pojo的主键属性
+			resultType：对应主键的数据类型
+			order：是在insert语句执行之前或者之后
+			如果使用uuid做主键，应该先生成主键然后插入数据，此对应该使用before
+		 -->
+		<!-- <selectKey keyProperty="id" resultType="int" order="AFTER">
+			select LAST_INSERT_ID()
+		</selectKey> -->
+		insert into user value(#{id},#{username},#{birthday},#{sex},#{address})
+	</insert>
+</mapper>

@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.attx.mapper.ProjectMapper" >
+  <resultMap id="BaseResultMap" type="com.attx.pojo.Project" >
+    <id column="pro_id" property="proId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="administrator" property="administrator" jdbcType="VARCHAR" />
+    <result column="group_num" property="groupNum" jdbcType="INTEGER" />
+    <result column="all_group" property="allGroup" jdbcType="VARCHAR" />
+    <result column="group_data" property="groupData" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="isdelete" property="isdelete" jdbcType="INTEGER" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="featuress" property="featuress" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    pro_id, name, start_time, end_time, administrator, group_num, all_group, group_data, 
+    status, isdelete, address, featuress, url
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.attx.pojo.ProjectExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from project
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from project
+    where pro_id = #{proId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from project
+    where pro_id = #{proId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.attx.pojo.ProjectExample" >
+    delete from project
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.attx.pojo.Project" >
+    insert into project (pro_id, name, start_time, 
+      end_time, administrator, group_num, 
+      all_group, group_data, status, 
+      isdelete, address, featuress, 
+      url)
+    values (#{proId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP}, #{administrator,jdbcType=VARCHAR}, #{groupNum,jdbcType=INTEGER}, 
+      #{allGroup,jdbcType=VARCHAR}, #{groupData,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{isdelete,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{featuress,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.attx.pojo.Project" >
+    insert into project
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="proId != null" >
+        pro_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="administrator != null" >
+        administrator,
+      </if>
+      <if test="groupNum != null" >
+        group_num,
+      </if>
+      <if test="allGroup != null" >
+        all_group,
+      </if>
+      <if test="groupData != null" >
+        group_data,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="isdelete != null" >
+        isdelete,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="featuress != null" >
+        featuress,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="proId != null" >
+        #{proId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="administrator != null" >
+        #{administrator,jdbcType=VARCHAR},
+      </if>
+      <if test="groupNum != null" >
+        #{groupNum,jdbcType=INTEGER},
+      </if>
+      <if test="allGroup != null" >
+        #{allGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="groupData != null" >
+        #{groupData,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="isdelete != null" >
+        #{isdelete,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="featuress != null" >
+        #{featuress,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.attx.pojo.ProjectExample" resultType="java.lang.Integer" >
+    select count(*) from project
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update project
+    <set >
+      <if test="record.proId != null" >
+        pro_id = #{record.proId,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startTime != null" >
+        start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endTime != null" >
+        end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.administrator != null" >
+        administrator = #{record.administrator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.groupNum != null" >
+        group_num = #{record.groupNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.allGroup != null" >
+        all_group = #{record.allGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="record.groupData != null" >
+        group_data = #{record.groupData,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.isdelete != null" >
+        isdelete = #{record.isdelete,jdbcType=INTEGER},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.featuress != null" >
+        featuress = #{record.featuress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.url != null" >
+        url = #{record.url,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update project
+    set pro_id = #{record.proId,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      administrator = #{record.administrator,jdbcType=VARCHAR},
+      group_num = #{record.groupNum,jdbcType=INTEGER},
+      all_group = #{record.allGroup,jdbcType=VARCHAR},
+      group_data = #{record.groupData,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      isdelete = #{record.isdelete,jdbcType=INTEGER},
+      address = #{record.address,jdbcType=VARCHAR},
+      featuress = #{record.featuress,jdbcType=VARCHAR},
+      url = #{record.url,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.attx.pojo.Project" >
+    update project
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="administrator != null" >
+        administrator = #{administrator,jdbcType=VARCHAR},
+      </if>
+      <if test="groupNum != null" >
+        group_num = #{groupNum,jdbcType=INTEGER},
+      </if>
+      <if test="allGroup != null" >
+        all_group = #{allGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="groupData != null" >
+        group_data = #{groupData,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="isdelete != null" >
+        isdelete = #{isdelete,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="featuress != null" >
+        featuress = #{featuress,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pro_id = #{proId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.attx.pojo.Project" >
+    update project
+    set name = #{name,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      administrator = #{administrator,jdbcType=VARCHAR},
+      group_num = #{groupNum,jdbcType=INTEGER},
+      all_group = #{allGroup,jdbcType=VARCHAR},
+      group_data = #{groupData,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      isdelete = #{isdelete,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      featuress = #{featuress,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR}
+    where pro_id = #{proId,jdbcType=INTEGER}
+  </update>
+</mapper>

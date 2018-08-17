@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.attx.mapper.MenbersOnlineMapper" >
+  <resultMap id="BaseResultMap" type="com.attx.pojo.MenbersOnline" >
+    <result column="mem_id" property="memId" jdbcType="INTEGER" />
+    <result column="pro_id" property="proId" jdbcType="INTEGER" />
+    <result column="rec_state" property="recState" jdbcType="INTEGER" />
+    <result column="gro_id" property="groId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    mem_id, pro_id, rec_state, gro_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.attx.pojo.MenbersOnlineExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from menbers_online
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.attx.pojo.MenbersOnlineExample" >
+    delete from menbers_online
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.attx.pojo.MenbersOnline" >
+    insert into menbers_online (mem_id, pro_id, rec_state, 
+      gro_id)
+    values (#{memId,jdbcType=INTEGER}, #{proId,jdbcType=INTEGER}, #{recState,jdbcType=INTEGER}, 
+      #{groId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.attx.pojo.MenbersOnline" >
+    insert into menbers_online
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="memId != null" >
+        mem_id,
+      </if>
+      <if test="proId != null" >
+        pro_id,
+      </if>
+      <if test="recState != null" >
+        rec_state,
+      </if>
+      <if test="groId != null" >
+        gro_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="memId != null" >
+        #{memId,jdbcType=INTEGER},
+      </if>
+      <if test="proId != null" >
+        #{proId,jdbcType=INTEGER},
+      </if>
+      <if test="recState != null" >
+        #{recState,jdbcType=INTEGER},
+      </if>
+      <if test="groId != null" >
+        #{groId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.attx.pojo.MenbersOnlineExample" resultType="java.lang.Integer" >
+    select count(*) from menbers_online
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update menbers_online
+    <set >
+      <if test="record.memId != null" >
+        mem_id = #{record.memId,jdbcType=INTEGER},
+      </if>
+      <if test="record.proId != null" >
+        pro_id = #{record.proId,jdbcType=INTEGER},
+      </if>
+      <if test="record.recState != null" >
+        rec_state = #{record.recState,jdbcType=INTEGER},
+      </if>
+      <if test="record.groId != null" >
+        gro_id = #{record.groId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update menbers_online
+    set mem_id = #{record.memId,jdbcType=INTEGER},
+      pro_id = #{record.proId,jdbcType=INTEGER},
+      rec_state = #{record.recState,jdbcType=INTEGER},
+      gro_id = #{record.groId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

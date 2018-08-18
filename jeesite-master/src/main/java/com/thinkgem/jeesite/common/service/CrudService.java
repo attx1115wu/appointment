@@ -5,6 +5,7 @@ package com.thinkgem.jeesite.common.service;
 
 import java.util.List;
 
+import com.thinkgem.jeesite.modules.project.entity.Project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -87,6 +88,11 @@ public abstract class CrudService<D extends CrudDao<T>, T extends DataEntity<T>>
 	@Transactional(readOnly = false)
 	public void delete(T entity) {
 		dao.delete(entity);
+	}
+
+	@Transactional(readOnly = false)
+	public void update(T entity){
+		dao.update(entity);
 	}
 
 }

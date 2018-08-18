@@ -22,8 +22,8 @@ app.controller('projectController' ,function($scope,$controller,projectService) 
 	)};
 
     // 修改状态
-    $scope.updateStatus=function(proId, status){
-        projectService.updateStatus(proId, status).success(
+    $scope.updateStatus=function(proId,status){
+        projectService.updateStatus(proId,status).success(
             function(response){
                 if(response.success){
                     $scope.reloadList();//刷新列表
@@ -38,7 +38,7 @@ app.controller('projectController' ,function($scope,$controller,projectService) 
     $scope.save=function(){
         var serviceObject;//服务层对象
         if($scope.entity.proId!=null){//如果有ID
-            serviceObject=projectService.updateStatus( $scope.entity ); //修改
+            serviceObject=projectService.updateAllGroup( $scope.entity ); //修改
         }else{
             serviceObject=projectService.add( $scope.entity  );//增加
         }

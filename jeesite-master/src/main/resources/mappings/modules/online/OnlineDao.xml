@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.online.dao.OnlineDao">
+    
+	<sql id="onlineColumns">
+		a.rec_max AS "recMax"
+	</sql>
+	
+	<sql id="onlineJoins">
+	</sql>
+    
+	<select id="get" resultType="Online">
+		SELECT 
+			<include refid="onlineColumns"/>
+		FROM online a
+		<include refid="onlineJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="Online">
+		SELECT 
+			<include refid="onlineColumns"/>
+		FROM online a
+		<include refid="onlineJoins"/>
+		<where>
+			
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="Online">
+		SELECT 
+			<include refid="onlineColumns"/>
+		FROM online a
+		<include refid="onlineJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO online(
+			rec_max
+		) VALUES (
+			#{recMax}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE online SET 	
+			rec_max = #{recMax}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM online
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

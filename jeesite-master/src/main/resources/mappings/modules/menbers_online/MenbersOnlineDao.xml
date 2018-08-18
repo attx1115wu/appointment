@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.menbers_online.dao.MenbersOnlineDao">
+    
+	<sql id="menbersOnlineColumns">
+		a.mem_id AS "memId",
+		a.pro_id AS "proId",
+		a.rec_state AS "recState",
+		a.gro_id AS "groId"
+	</sql>
+	
+	<sql id="menbersOnlineJoins">
+	</sql>
+    
+	<select id="get" resultType="MenbersOnline">
+		SELECT 
+			<include refid="menbersOnlineColumns"/>
+		FROM menbers_online a
+		<include refid="menbersOnlineJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="MenbersOnline">
+		SELECT 
+			<include refid="menbersOnlineColumns"/>
+		FROM menbers_online a
+		<include refid="menbersOnlineJoins"/>
+		<where>
+			
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="MenbersOnline">
+		SELECT 
+			<include refid="menbersOnlineColumns"/>
+		FROM menbers_online a
+		<include refid="menbersOnlineJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO menbers_online(
+			mem_id,
+			pro_id,
+			rec_state,
+			gro_id
+		) VALUES (
+			#{memId},
+			#{proId},
+			#{recState},
+			#{groId}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE menbers_online SET 	
+			mem_id = #{memId},
+			pro_id = #{proId},
+			rec_state = #{recState},
+			gro_id = #{groId}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM menbers_online
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

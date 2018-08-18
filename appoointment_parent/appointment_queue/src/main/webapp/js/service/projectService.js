@@ -17,8 +17,13 @@ app.service('projectService',function($http) {
     }
 
     // 修改状态
-    this.updateStatus=function(proId, status){
+    this.updateStatus=function(proId,status){
         return $http.get("../project/updateStatus.do?proId="+proId+"&status="+status);
+    }
+    
+    // 设置批数上限
+    this.updateAllGroup=function(proId,status){
+        return $http.get("../project/updateAllGroup.do?proId="+proId+"&allGroup="+allGroup);
     }
 
     //查询实体

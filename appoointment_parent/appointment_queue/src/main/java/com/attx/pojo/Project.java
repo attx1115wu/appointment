@@ -19,9 +19,9 @@ public class Project {
 
     private String groupData;
 
-    private Integer status;
+    private String status;
 
-    private Integer isdelete;
+    private String isdelete;
 
     private String address;
 
@@ -93,19 +93,19 @@ public class Project {
         this.groupData = groupData == null ? null : groupData.trim();
     }
 
-    public Integer getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    public Integer getIsdelete() {
+    public String getIsdelete() {
         return isdelete;
     }
 
-    public void setIsdelete(Integer isdelete) {
+    public void setIsdelete(String isdelete) {
         this.isdelete = isdelete;
     }
 

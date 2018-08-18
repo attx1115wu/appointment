@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.groups.dao.GroupsDao">
+    
+	<sql id="groupsColumns">
+		a.gro_id AS "groId",
+		a.pro_id AS "proId",
+		a.number AS "number"
+	</sql>
+	
+	<sql id="groupsJoins">
+	</sql>
+    
+	<select id="get" resultType="Groups">
+		SELECT 
+			<include refid="groupsColumns"/>
+		FROM groups a
+		<include refid="groupsJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="Groups">
+		SELECT 
+			<include refid="groupsColumns"/>
+		FROM groups a
+		<include refid="groupsJoins"/>
+		<where>
+			
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="Groups">
+		SELECT 
+			<include refid="groupsColumns"/>
+		FROM groups a
+		<include refid="groupsJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO groups(
+			gro_id,
+			pro_id,
+			number
+		) VALUES (
+			#{groId},
+			#{proId},
+			#{number}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE groups SET 	
+			gro_id = #{groId},
+			pro_id = #{proId},
+			number = #{number}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM groups
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

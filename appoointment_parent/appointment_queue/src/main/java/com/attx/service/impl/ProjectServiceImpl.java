@@ -42,19 +42,29 @@ public class ProjectServiceImpl implements ProjectService {
 	 */
 	@Override
 	public void add(Project project) {
+		project.setStatus("1");
 		projectMapper.insert(project);
 	}
-	
+
 	/**
 	 * 修改状态
 	 */
 	@Override
-	public void update(Project project) {
-		Project select = projectMapper.selectByPrimaryKey(project.getProId());
-		// 设置批数上线
-		select.setAllGroup(project.getAllGroup());
-		// 修改状态
-		select.setStatus(project.getStatus());
+	public void updateStatus(Integer proId, String status) {
+		Project project = projectMapper.selectByPrimaryKey(proId);
+		// 设置状态
+		project.setStatus(status);
+		projectMapper.updateByPrimaryKey(project);
+	}
+
+	/**
+	 * 设置批数上线
+	 */
+	@Override
+	public void updateAllGroup(Integer proId,String allGroup){
+		Project project = projectMapper.selectByPrimaryKey(proId);
+		// 修改批数上限
+		project.setAllGroup(allGroup);
 		projectMapper.updateByPrimaryKey(project);
 	}
 
@@ -68,11 +78,13 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	/**
-	 * 批量删除
+	 * 批量删除,修改字段属性值，1正常  2删除
 	 */
 	public void delete(Integer[] ids) {
 		for (Integer id : ids) {
-			projectMapper.deleteByPrimaryKey(id);
+			Project project = projectMapper.selectByPrimaryKey(id);
+			project.setIsdelete("2");// 表示逻辑删除
+			projectMapper.updateByPrimaryKey(project);
 		}
 	}
 	

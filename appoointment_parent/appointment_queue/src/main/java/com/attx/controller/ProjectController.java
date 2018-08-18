@@ -42,7 +42,7 @@ public class ProjectController {
 	 * @return
 	 */
 	@RequestMapping("/add")
-	public Result add(@RequestBody Project project) {
+	public Result add(Project project) {
 		try {
 			projectService.add(project);
 			return new Result(true, "增加成功");
@@ -54,17 +54,31 @@ public class ProjectController {
 
 	/**
 	 * 修改状态:1正常2暂停3停止
-	 * @param project
+	 * @param proId,status
 	 * @return
 	 */
 	@RequestMapping("/updateStatus")
-	public Result update(@RequestBody Project project) {
+	public Result updateStatus(Integer proId, String status) {
 		try {
-			projectService.update(project);
+			projectService.updateStatus(proId,status);
 			return new Result(true, "修改状态成功！");
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new Result(false, "修改状态失败！");
+		}
+	}
+
+	/**
+	 * 设置批数上限
+	 */
+	@RequestMapping("/updateAllGroup")
+	public Result updateAllGroup(Integer proId,String allGroup){
+		try {
+			projectService.updateAllGroup(proId,allGroup);
+			return new Result(true, "修改批数上限成功！");
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Result(false, "修改批数上限失败！");
 		}
 	}
 
@@ -81,7 +95,6 @@ public class ProjectController {
 
 	/**
 	 * 批量删除
-	 * 
 	 * @param ids
 	 * @return
 	 */
